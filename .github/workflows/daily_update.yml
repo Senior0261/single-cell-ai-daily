@@ -1,0 +1,42 @@
+name: Daily Content Update and Deploy
+
+on:
+  schedule:
+    # 每日 UTC 16:00 运行，相当于 UTC+8 00:00
+    - cron: '0 16 * * *'
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    # 设置环境变量，用于 Python 脚本中的 OpenAI 客户端
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4 feedparser openai
+
+      - name: Generate Content and HTML
+        run: |
+          python fetch_content.py
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
+          # 部署到 gh-pages 分支，用于 GitHub Pages 托管
+          publish_branch: gh-pages
+          # 强制推送，覆盖旧内容
+          force_orphan: true

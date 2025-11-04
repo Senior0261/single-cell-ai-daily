@@ -1,0 +1,18 @@
+# Dependencies
+/node_modules
+/vendor
+/venv
+/env
+
+# Cache
+.cache
+*.pyc
+__pycache__
+
+# Logs and temp files
+*.log
+*.tmp
+/temp
+
+# Generated files
+/index.html
