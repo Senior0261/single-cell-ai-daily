@@ -146,6 +146,7 @@ def generate_html(data):
         highlight_item = None
 
     # 网页设计：学术极简低饱和度
+    # 将 CSS 样式完全内联，避免 GitHub Pages 路径问题
     CSS_STYLE = """
     <style>
         :root {
@@ -177,6 +178,12 @@ def generate_html(data):
             padding-bottom: 10px;
             margin-bottom: 30px;
         }
+        h2 {
+            color: var(--color-text-dark);
+            font-weight: 400;
+            margin-top: 0;
+            font-size: 1.5em;
+        }
         .highlight-area {
             background-color: var(--color-card-bg);
             border: 2px solid var(--color-highlight-border);
@@ -185,10 +192,10 @@ def generate_html(data):
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
-        .highlight-area h2 {
+        .highlight-area h3 {
             color: #2c3e50; /* 略深的蓝灰 */
             margin-top: 0;
-            font-size: 1.5em;
+            font-size: 1.2em;
         }
         .highlight-area .abstract {
             font-size: 1.1em;
