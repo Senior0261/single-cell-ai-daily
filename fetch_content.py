@@ -8,8 +8,15 @@ from openai import OpenAI
 import os
 
 # --- Configuration ---
-# 使用环境变量中的 API 密钥
-client = OpenAI() 
+# 确保从环境变量中读取 API 密钥
+# 即使在 Actions 中设置了 env，Python 脚本也需要显式从 os.environ 读取
+api_key = os.environ.get("OPENAI_API_KEY")
+if not api_key:
+    print("Error: OPENAI_API_KEY environment variable not set.")
+    # 退出或使用一个默认值，这里选择使用默认的 client()，它会尝试读取环境变量
+    client = OpenAI()
+else:
+    client = OpenAI(api_key=api_key) 
 
 # 关键词列表，用于过滤和标签生成
 KEYWORDS = [
