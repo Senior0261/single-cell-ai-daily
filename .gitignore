@@ -16,3 +16,6 @@ __pycache__
 
 # Generated files
 /index.html
+
+# Local cache and environment
+.local/
